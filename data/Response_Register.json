@@ -1,0 +1,8 @@
+{
+    "success": false,
+    "status": 401,
+    "message": "Invalid JWT token",
+    "body": null,
+    "token": null,
+    "timestamp": "2025-07-10T12:22:21.790+00:00"
+}

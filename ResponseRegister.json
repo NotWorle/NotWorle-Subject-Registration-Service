@@ -1,8 +1,0 @@
-{
-    "success": false,
-    "status": 400,
-    "message": "Môn học không có trong chương trình khung",
-    "body": null,
-    "token": null,
-    "timestamp": "2025-07-07T14:00:59.965+00:00"
-}

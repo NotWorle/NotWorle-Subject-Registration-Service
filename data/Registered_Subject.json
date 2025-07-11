@@ -1,0 +1,51 @@
+{
+    "success": true,
+    "status": 200,
+    "message": null,
+    "body": [
+        {
+            "id": 5316133,
+            "maLopHocPhan": "010412204103",
+            "tenMonHoc": "Khai thác dữ liệu",
+            "lopDuKien": "HT22CLC",
+            "soTinChi": 3,
+            "mucHocPhi": 2550000,
+            "ngayHetHanNopHP": null,
+            "daDongHocPhi": false,
+            "tenTrangThaiDangKy": "Đăng ký mới",
+            "ngayDangKy": "2025-06-25T13:40:00.297Z",
+            "tenTrangThaiLopHocPhan": "Đã khóa lớp",
+            "isAllowCancel": false
+        },
+        {
+            "id": 5368052,
+            "maLopHocPhan": "012008010414",
+            "tenMonHoc": "Trí tuệ nhân tạo và ứng dụng",
+            "lopDuKien": "7840104903369",
+            "soTinChi": 3,
+            "mucHocPhi": 2550000,
+            "ngayHetHanNopHP": null,
+            "daDongHocPhi": false,
+            "tenTrangThaiDangKy": "Đăng ký mới",
+            "ngayDangKy": "2025-07-07T08:15:42.627Z",
+            "tenTrangThaiLopHocPhan": "Đã khóa lớp",
+            "isAllowCancel": false
+        },
+        {
+            "id": 5368010,
+            "maLopHocPhan": "012008010340",
+            "tenMonHoc": "Tư duy thiết kế và đổi mới sáng tạo",
+            "lopDuKien": "7840101903613",
+            "soTinChi": 3,
+            "mucHocPhi": 2550000,
+            "ngayHetHanNopHP": null,
+            "daDongHocPhi": false,
+            "tenTrangThaiDangKy": "Đăng ký mới",
+            "ngayDangKy": "2025-07-07T07:39:51.700Z",
+            "tenTrangThaiLopHocPhan": "Đã khóa lớp",
+            "isAllowCancel": false
+        }
+    ],
+    "token": null,
+    "timestamp": "2025-07-11T13:18:54.867+00:00"
+}
