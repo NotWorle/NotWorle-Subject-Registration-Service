@@ -1,13 +1,16 @@
-from UTH_service import HocPhanUTH
-
-LeDucHuy = HocPhanUTH('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzUyMDUwMDk2OTMiLCJpYXQiOjE3NTIyMjMxNDcsImV4cCI6MTc1NDgxNTE0N30.6adESgCAW8a1q9Hwv7tD51baqWzbhvqtKQPMEGMsaN0')
-
-subject_code = ['123013', '122041']
-
-id_class = LeDucHuy.class_list('0104', subject_code, 73)
-
-print(id_class['id'])
-print(id_class['data'])
-LeDucHuy.class_calendar(id_class['id'])
+from uth_service.UTH_service import HocPhanUTH
+import json, time
 
 
+UTH = HocPhanUTH('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzUyMDUwMDk2OTMiLCJpYXQiOjE3NTM4NTk1OTksImV4cCI6MTc1NjQ1MTU5OX0.57uZ2Bzopy7zIN-wejnQapyBwYXehks6qvgQZ6cb3w4')
+
+# Môn học điều kiện dao_tao để trống
+english = UTH.get_class('', '006111', 73)
+
+# Môn máy học
+machine = UTH.get_class('0104', '122101', 73)
+
+# định dạng dumps json sẽ dễ học hơn
+print(json.dumps(english, indent=4, ensure_ascii=False))
+print(json.dumps(machine = UTH.get_class('0104', '122101', 73)
+, indent=4, ensure_ascii=False))

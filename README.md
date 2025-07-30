@@ -3,82 +3,137 @@
 ## Cách hoạt động
 Dùng token của tài khoản sinh viên để gọi đến endpoint API
 hệ thống của trường để thực hiên các chức năng liên quan đến học phần
+Tutorial: [Lấy token thủ công](https://youtu.be/UnA8YOCFXx0)
 
-## Các chức năng    
-1. Lấy danh sách lớp theo mã học phần `class_list`:  
-Trong đó:
+## Quy trình của hệ thống đăng ký
+Sinh viên mở đợt đăng ký **semester**.
+![alt text](images/image.png)
+
+Tại mỗi đợt đăng ký **semester**, chứa các thông tin lớp trong đợt đăng ký,
+Dùng hàm `def semester(self, semester)`.
+![alt text](images/image-1.png)
+
+Khi ấn vào 1 môn tức là gửi `dao_tao` và `subject_code` sẽ trả thông tin `class_code` (mã lớp học phần) của các lớp tương ứng. Thông tin trả về chứa một `id_class`.
+Dùng hàm `def get_class`.
+![alt text](images/image-2.png)
+
+Ấn vào lớp, gửi `id_class` để xem lịch học của `class_code` (mã lớp học phần).
+Dùng hàm `def get_class`.
+![alt text](images/image-3.png)
+
+Để đăng ký, gửi `id_class`
+Dùng hàm `def register_subject(self, id_class)`.
+![alt text](images/image-4.png)
+
+Để xem danh sách môn (điều kiện) đã đăng ký:
+Dùng hàm `def registered_subject(self, semester:int)` or `registered_subject(self, semester:int)`.
+![alt text](images/image.png)
+
+## Các chức năng. 
+1.  `def semester(self, semester) -> dict:`
+**Chức năng**: Xem các môn đăng ký theo *đợt đăng ký*
+Tham số:
+      - `semester:int`: đợt đăng ký.
+**Return**: Dữ liệu json danh sách môn đăng ký theo `semester`.
+
+2. `def get_class(self,
+                dao_tao:str,
+                subject_code:str,
+                semester:int,
+                is_loc_trung:bool=False,
+                is_loc_trong_0learning:bool=False):`  
+**Chức năng**: Lấy danh sách lớp theo *mã học phần* 
+Tham số:
    - `dao_tao:str`: mã ngành đào tạo
-   - `subject_code:list`: mã học phần
+   - `subject_code:str`: mã học phần
    - `semester:int`: đợt đăng ký
-   - `filename:str= r"data\class.json"`: nơi chứa danh sách lớp
    - `is_loc_trung:bool=False`: loại bỏ lớp đã đăng ký
    - `is_loc_trong_0learning:bool=False`:  không rõ  
-Trả về `Tuple` response và danh sách `id_class`   
+**Return**: Danh sách thông tin của từng lớp (`id_class`,...)
 
-    ```
-   Ví dụ:
-    UTH = HocPhanUTH('I6MTc1NDgxNTE0N30.6adESgCAW8a1q9Hwv7tD51baqWzbhvqtKQPMEGMsaN0')
-    subject_code = ['123013', '122041']
-   
-    id_class = LeDucHuy.class_list('0104', subject_code, 73)
-   
-    print(id_class['id'])
-    print(id_class['data'])
-    ```  
+3. `def get_id_class(self, class_code:str, semester:int):`
+**Chức năng**: Lấy `id_class` theo *mã lớp học phần* 
+Tham số:
+   - `class_code:str`: Mã lớp học phần.
+   - `semester:int`: Đợt đăng ký
+**Return**: Trả `id_class` tương ứng với `subject_code`.
 
+4. `def class_calendar(self, id_class:str)`:
+**Chức năng**: Xem lịch học của *mã lớp học phần* theo id tương ứng
+   - `id_class:str`: id của lớp
+**Return**: Trả lịch học tương ứng với `id_class`.
 
-2. Xem lịch học của lớp `class_calendar`:  
-Trong đó:
-   - `id_class:list`: id của lớp
-   - `filename:str= "data/calendar_class.json"`: nơi chứa danh sách
-lịch học của lớp   
-Trả về response
-   
-    ```
-   # biến id_class['id'] ở ví dụ trên
-   LeDucHuy.class_calendar(id_class['id'])
-   ```
-
-
-3. Đăng ký môn học `register_subject`:  
-Trong đó:  
-   - `id_class`: id của lớp   
-Trả về response
+5. `def register_subject(self, id_class)`:  
+**Chức năng**: Đăng ký lớp với id của lớp
+   - `id_class:str`: id của lớp
+**Return**: Repsone của việc đăng ký
    
 
-4. Các môn học điều kiện đã đăng ký `registered_condition_subject`:  
-    Trong đó:
-   - `semester:int`: đợt đăng ký  
-Trả về response và danh sách `id_registered`
-   
-
-5. Các môn học đã đăng ký `registered_subject`:  
-    Trong đó:
-   - `semester:int`: đợt đăng ký  
-Trả về response và danh sách `id_registered`
-
-
-6. Hủy đăng ký `cancel_class`:  
-Trong đó:
-   - `id_registered`: id môn học đã đăng ký
-    Trả về response
-
-
-7. Tự động đăng ký môn `auto_register`:
-Trong đó:
-    - `id_subject`: id lớp
-    -  `latency:float=5`: độ trễ (5s)
-    - `limit=2000`: giới hạn 2000 lần gửi request   
-
-
-8. Xem tên giảng viên `name_teacher`:  
-    Lưu ý:   Cần dùng token của một sinh viên khác để xem. 
-    Lý do khi không có quyền truy cập khóa học nên bị đẩy trước cửa
-    lớp nên mới thấy tên của giảng viên.
-
-   Trong đó:
+6. `def registered_subject(self, semester:int)`:  
+**Chức năng**: Xem các *môn điều kiện* đã đăng ký trong đợt.
    - `semester:int`: đợt đăng ký
-   - `class_code:list`: mã lớp học phần
-   - `another_token:str`: token của sinh viên khác
-    
+**Return**: Trả danh sách *lớp môn điều kiện* đã đăng ký, chứa `id_registered`
    
+
+7. `registered_subject(self, semester:int)`:  
+**Chức năng**: Xem các *môn* đã đăng ký trong đợt.
+   - `semester:int`: đợt đăng ký
+**Return**: Trả danh sách lớp môn đã đăng ký, chứa `id_registered`
+
+8. `def cancel_class(self, id_registered)`:  
+**Chức năng**: Hủy lớp đã đăng ký.
+   - `semester:int`: đợt đăng ký
+**Return**: Response về việc hủy đăng ký
+
+
+9. `def auto_register(self, id_class, latency:float=5, limit:int=2000):`:
+**Chức năng**: Tự động đăng ký môn học.
+   - `id_class`: id của lớp học phần
+   - `latency:float=5`: độ trễ, mặc định 5 giây
+   - `limit:int=2000`: giới hạn số lần thực hiện đăng ký, mặc định 2000
+**Return**: None
+
+
+## Example
+### Xem danh sách lớp học theo `subject_code`
+Với các môn điều kiện sẽ không có tham số `dao_tao`
+```
+UTH = HocPhanUTH('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzUyMDUwMDk2OTMiLCJpYXQiOjE3NTM4NTk1OTksImV4cCI6MTc1NjQ1MTU5OX0.57uZ2Bzopy7zIN-wejnQapyBwYXehks6qvgQZ6cb3w4')
+
+# Môn học điều kiện dao_tao để trống
+english = UTH.get_class('', '006111', 73)
+
+# Môn máy học
+machine = UTH.get_class('0104', '122101', 73)
+
+# định dạng dumps json sẽ dễ học hơn
+print(json.dumps(english, indent=4, ensure_ascii=False))
+print(json.dumps(machine = UTH.get_class('0104', '122101', 73)
+, indent=4, ensure_ascii=False))
+```
+
+
+2. Một vài chức năng khác
+```
+UTH = HocPhanUTH('eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNzUyMDUwMDk2OTMiLCJpYXQiOjE3NTM4NTk1OTksImV4cCI6MTc1NjQ1MTU5OX0.57uZ2Bzopy7zIN-wejnQapyBwYXehks6qvgQZ6cb3w4')
+# Xem danh sach lớp theo đợt đăng ký
+subject_sesmester = UTH.semester(73)
+
+# Xem danh sach lớp theo mã học phần
+list_class = UTH.get_class('', '006111', 73)
+
+# Lấy id_class theo mã lớp học phần
+id_class = UTH.get_id_class('010408010101',73)
+
+# Xem lịch học của lớp
+calendar = UTH.class_calendar(id_class)
+
+# Xuất data
+print(json.dumps(list_class, indent=4, ensure_ascii=False))
+
+print(id_class)
+
+print(json.dumps(calendar, indent=4, ensure_ascii=False))
+```
+
+
