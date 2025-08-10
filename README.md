@@ -27,7 +27,7 @@ Dùng hàm `def register_subject(self, id_class)`.
 
 Để xem danh sách môn (điều kiện) đã đăng ký:
 Dùng hàm `def registered_subject(self, semester:int)` or `registered_subject(self, semester:int)`.
-![alt text](images/image.png)
+![alt text](images/image-5.png)
 
 ## Các chức năng. 
 1.  `def semester(self, semester) -> dict:`
